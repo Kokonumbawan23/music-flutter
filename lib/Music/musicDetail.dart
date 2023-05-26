@@ -68,12 +68,18 @@ class _DetailLyricState extends State<DetailLyric> {
             ),
             Text(
               widget.track.trackName,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Theme.of(context).primaryColor),
               textAlign: TextAlign.center,
             ),
             Text(
               widget.track.artistName,
-              style: TextStyle(fontWeight: FontWeight.w100, fontSize: 15),
+              style: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 15,
+                  color: Theme.of(context).primaryColor),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -82,6 +88,7 @@ class _DetailLyricState extends State<DetailLyric> {
             Text(
               lyric.lyricsBody,
               textAlign: TextAlign.center,
+              style: TextStyle(color: Theme.of(context).primaryColor),
             ),
             SizedBox(
               height: 20,

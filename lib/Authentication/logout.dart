@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_akhir/Authentication/HttpDependencies/ApiDataSource.dart';
 import 'package:tugas_akhir/Authentication/login.dart';
 
@@ -13,6 +14,7 @@ class Logout extends StatefulWidget {
 }
 
 class _LogoutState extends State<Logout> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +36,12 @@ class _LogoutState extends State<Logout> {
         TextButton(
           onPressed: () async {
             try {
+              SharedPreferences pref = await _prefs;
               dynamic res = await ApiDataSource.instance
                   .logout({'accessToken': widget.accessToken});
 
               if (res["message"] == "Logout success") {
+                pref.remove('accessToken');
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Login()));
               }

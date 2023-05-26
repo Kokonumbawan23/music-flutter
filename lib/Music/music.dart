@@ -26,10 +26,11 @@ class _MusicLyricsState extends State<MusicLyrics> {
           child: Column(
         children: [
           SizedBox(
-            height: 5,
+            height: 15,
           ),
           Container(
             width: MediaQuery.of(context).size.width * 7 / 8,
+            height: 60,
             alignment: Alignment.center,
             child: TextField(
               controller: searchController,
@@ -49,7 +50,7 @@ class _MusicLyricsState extends State<MusicLyrics> {
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 15,
           ),
           ToggleButtons(
               children: [
@@ -147,12 +148,17 @@ class _MusicLyricsState extends State<MusicLyrics> {
                     children: [
                       Text(
                         list[index].trackDetail.trackName,
-                        style: TextStyle(fontSize: 12),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Theme.of(context).primaryColor),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Text(list[index].trackDetail.artistName),
+                      Text(
+                        list[index].trackDetail.artistName,
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
                     ],
                   ))
                 ],

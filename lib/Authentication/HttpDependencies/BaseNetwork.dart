@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class BaseNetwork {
-  static final String baseUrl = "http://localhost:3005";
+  static final String baseUrl = "http://10.0.2.2:3005";
 
   static Future<Map<String, dynamic>> login(
       String partUrl, Map<String, dynamic> reqBody) async {

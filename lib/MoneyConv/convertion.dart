@@ -128,7 +128,7 @@ class _MoneyConvState extends State<MoneyConv> {
                     child: ButtonTheme(
                       alignedDropdown: true,
                       child: DropdownButton(
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Theme.of(context).primaryColor),
                         items: dropdownItems,
                         onChanged: (str) => {
                           setState(() {

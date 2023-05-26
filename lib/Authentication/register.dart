@@ -79,7 +79,7 @@ class _LoginState extends State<Register> {
                 height: 80,
                 width: 80,
                 margin: const EdgeInsets.symmetric(vertical: 50),
-                child: Image.asset('images/hero.png'),
+                child: Image.asset('assets/images/hero.png'),
               ),
               SizedBox(
                   height: 300,
@@ -165,10 +165,10 @@ class _LoginState extends State<Register> {
                                             builder: (context) =>
                                                 const Login()))
                                   },
-                              child: const Text(
+                              child: Text(
                                 "Login",
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
                               ))
                         ],

@@ -5,6 +5,7 @@ import 'package:tugas_akhir/Authentication/Models/UserModel.dart';
 import 'package:tugas_akhir/Authentication/register.dart';
 import 'package:tugas_akhir/home.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -31,12 +33,14 @@ class _LoginState extends State<Login> {
       if (res["message"] == "Login success") {
         Model data = Model.fromJson(res);
 
+        SharedPreferences pref = await _prefs;
+        pref.setString('accessToken', data.data.accessToken);
+        pref.setString('username', data.data.user.name);
+        pref.setString('email', data.data.user.email);
+
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => Home(
-                    model: data,
-                  )),
+          MaterialPageRoute(builder: (context) => Home()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -49,6 +53,11 @@ class _LoginState extends State<Login> {
     } catch (e) {
       print(e);
     }
+  }
+
+  void setPreferences() async {
+    final SharedPreferences pref = await _prefs;
+    pref.setString('accessToken', accessToken);
   }
 
   @override
@@ -67,10 +76,10 @@ class _LoginState extends State<Login> {
                 height: 120,
                 width: 120,
                 margin: const EdgeInsets.symmetric(vertical: 50),
-                child: Image.asset('images/hero.png'),
+                child: Image.asset('assets/images/hero.png'),
               ),
               SizedBox(
-                  height: 180,
+                  height: 240,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,10 +136,10 @@ class _LoginState extends State<Login> {
                                         MaterialPageRoute(
                                             builder: (context) => Register()))
                                   },
-                              child: const Text(
+                              child: Text(
                                 "Register",
                                 style: TextStyle(
-                                    color: Colors.blue,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
                               ))
                         ],

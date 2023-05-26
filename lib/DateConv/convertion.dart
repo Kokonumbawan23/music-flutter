@@ -88,7 +88,7 @@ class _DateConvState extends State<DateConv> {
                   ],
                   isSelected: _selections,
                   selectedColor: Colors.white,
-                  fillColor: Colors.blue,
+                  fillColor: Theme.of(context).primaryColor,
                   renderBorder: false,
                   onPressed: (index) {
                     setState(() {

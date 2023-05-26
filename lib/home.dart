@@ -6,24 +6,43 @@ import 'package:tugas_akhir/DateConv/convertion.dart';
 import 'package:tugas_akhir/Music/music.dart';
 import 'package:tugas_akhir/profil.dart';
 import 'package:tugas_akhir/kesanpesan.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
-  final Model model;
-
-  const Home({super.key, required this.model});
+  const Home({
+    super.key,
+  });
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   int _selectedOptions = 0;
   int _previousSelection = 0;
+
+  String? username = "";
+  String? email = "";
+  String? accessToken = "";
 
   List<Widget> menu = [
     Profil(),
     KesanPesan(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _prefs.then((SharedPreferences value) {
+      setState(() {
+        username = value.getString('username');
+        email = value.getString('email');
+        accessToken = value.getString('accessToken');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +69,12 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => Logout(
-                            accessToken: widget.model.data.accessToken,
+                            accessToken: accessToken!,
                           )));
             }
           });
         },
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Theme.of(context).primaryColor,
         currentIndex: _selectedOptions,
         unselectedItemColor: Colors.grey,
       ),
@@ -76,16 +95,14 @@ class _HomeState extends State<Home> {
           children: [
             UserAccountsDrawerHeader(
               //membuat nama akun
-              accountName: (widget.model.data.user.name == "")
-                  ? Text("Undefined")
-                  : Text(widget.model.data.user.name),
+              accountName:
+                  (username! == "") ? Text("Undefined") : Text(username!),
               //membuat nama email
-              accountEmail: Text(widget.model.data.user.email),
+              accountEmail: Text(email!),
               //memberikan background
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2016/04/24/20/52/laundry-1350593_960_720.jpg"),
+                      image: AssetImage("assets/images/bg-draw.jpg"),
                       fit: BoxFit.cover)),
             ),
             //membuat list menu
